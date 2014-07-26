@@ -1,4 +1,2 @@
-iCtrl
-=====
-
-Control your Presentations from the Web Browser
+# Controlador de Presentaciones
+Controla las presentaciones desde cualquier navegador web.
