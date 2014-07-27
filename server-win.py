@@ -1,10 +1,9 @@
 #!/usr/bin/env python
- 
-# Simple Servidor de Datos
-# Crea un servidor web para
-# controlar la presentacion desde el iPhone
+# 
+# iCtrl
+# Sends keystrokes to presentations
 # @author Camilo Castro
-# @date   17/07/2014
+# @date   26/07/2014
  
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 from os import curdir,sep
@@ -13,11 +12,12 @@ import win32com.client
  
 class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
+        
         shell = win32com.client.Dispatch("WScript.Shell")
  
         try:
  
-        	# Enviamos el comando de teclado segun url
+            # Send the Keystrokes
             if(self.path.endswith('/up')):
             	print "Sending Up"
             	shell.SendKeys("{UP}")
@@ -38,7 +38,7 @@ class MyHandler(BaseHTTPRequestHandler):
             	print "Sending Space"
             	shell.SendKeys(" ")
  
-            # Mostramos el html del teclado
+            # Show html
             self.send_response(200)
             self.send_header('Content-type','text/html')
             self.end_headers()
@@ -58,10 +58,10 @@ def main():
     serverPort = 8080
     try:
         server = HTTPServer(('',serverPort),MyHandler)
-        print 'Comenzando a servir los datos localhost:{}'.format(serverPort)
+        print 'Serving at localhost:{}'.format(serverPort)
         server.serve_forever()
     except KeyboardInterrupt:
-        print 'Apagando servidor'
+        print 'Shutting Down'
         server.socket.close()
         
 if __name__ == '__main__':
